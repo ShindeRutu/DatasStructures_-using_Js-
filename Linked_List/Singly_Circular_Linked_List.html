@@ -1,0 +1,92 @@
+<!DocType html>
+<html>
+    <head>
+    <title>SCLL_Q2</title>
+ </head>
+ <body>
+ <script>
+    class Node{ 
+        // constructor 
+        constructor(element) { 
+        this.element = element; 
+        this.next = null
+        this.previous = null
+        } 
+    } 
+ 
+    class LinkedList { 
+        constructor() { 
+        this.head = null;
+        this.tail = null;
+        this.size = 0; 
+        }
+ 
+        //add element to list
+        insert(element){
+            var node = new Node(element);
+            // if list is empty
+            if (this.head === null) {
+                this.head = node;
+                this.tail = node;
+                return this.head;
+            }
+            // Insertion at head
+            else{
+                node.next = this.head;
+                this.head.prev = node;
+                this.head = node;
+                return this.head;
+            }
+            this.size++;
+        }//insert()
+
+    //Returns second largest element from the list
+        getSecondLargestNumber(){
+            var current = this.head;
+            var maxnumber = current.element;
+            var secondmax =current.next.element;
+            while (current) {
+                if(current.element>maxnumber){
+                    secondmax =maxnumber;
+                    maxnumber=current.element;
+                }
+                else
+                    secondmax=current.element;
+            
+                current = current.next;
+            }//while
+            return secondmax;
+        }//2ndlargetstnum
+
+        //print list
+        printList(){
+            document.write("<br>Linked list: ");
+            var current = this.head;
+            var str = "";
+            while (current) {
+                str += current.element + " ==> ";
+                current = current.next;
+            }
+            document.write("<br>"+str+" <br><br>");
+        }//printlist
+    
+    }//LinkedList
+    
+//object creation:
+var scll = new LinkedList();
+document.write("<b>______Single Circular Link List_______</b><br>");
+document.write("<br><b>Inserting 100,20,80,160 in the list:</b>")
+scll.insert(100);
+scll.insert(20);
+scll.insert(80);
+scll.insert(160);
+scll.printList();
+
+document.write("<br><b>Inserting 12 in the list:</b>")
+scll.insert(12);
+scll.printList();
+
+document.write("<br><b>Second Largest Number in list  is: </b>"+ scll.getSecondLargestNumber());
+ </script>
+ </body>
+</html>
