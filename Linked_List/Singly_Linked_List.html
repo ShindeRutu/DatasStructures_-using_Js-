@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLL_Q1</title>
+</head>
+<body>
+    <script>
+        document.write("<b>______Single Link List_______</b><br>");
+        class Node{
+            // constructor
+            constructor(element) {
+                this.element = element;
+                this.next = null
+            }
+        }//NOde
+
+        class LinkedList{
+           //constructor
+            constructor(){
+                this.head = null;   //initially set to null
+                this.size = 0;      //initially node count/size is 0
+            }
+
+            /******insert element*******/
+            insert(element){
+                //create new node
+                var newNode = new Node(element);
+
+                //to store current node
+                var currentNode;
+
+                //case 1: if list is empty:
+                if(this.head == null)
+                    this.head = newNode;
+
+                //case 2: 
+                else{
+                    currentNode = this.head;
+
+                    //iterate til end of list 
+                    while(currentNode.next)
+                        currentNode = currentNode.next;
+                    
+                    //add node
+                    currentNode.next = newNode;
+                }//else
+                this.size++;
+            }//insert
+            
+            /***** insert at specific index ********/
+            insertAtIndex(index,element){
+		        //case 1: if given insex is less then 0 or greatot then list size
+                if(index < 0 || index > this.size)
+			        document.write("<br>Invalid Index!! Enter a valid index number. ");
+			    //cse 2:
+                else{
+                    var newNode = new Node(element);
+                    var currentNode, prevNode;
+
+                    currentNode = this.head;
+		
+                    //case1: if list is empty
+		            //if(!this.head){
+			          //  this.head = newNode;
+			            //return;
+		            //}
+			
+		            // case2: if index val is  0 
+		            if (index ==0){
+                        newNode.next = this.head;
+                        this.head = newNode;
+                    }
+
+		            //case3: if list is nt empty nd index nt = 0
+		            else{
+                        currentNode = this.head;
+                        var i = 0; 
+                        
+                        // iterate over the list to find the index
+                        while (i<index){ 
+                            prevNode = currentNode; 
+                            currentNode = currentNode.next; 
+                            i++;
+                        } 
+                                
+                        //add the element
+                        newNode.next = currentNode; 
+                        prevNode.next = newNode; 
+                    }//else
+                    this.size++;
+		        }//else
+	        }//insertAtPosition  
+
+            /****** insert node at beginning ****/
+            insertFirst(element){
+                //creat new Node
+                var newNode = new Node(element);
+                    
+                //to store current Element
+               // var currentNode;
+                    
+                // case1. if list is empty
+                if(!this.head){
+                    this.head = node;
+                }
+                    
+                //case2. if list is not empty
+                else{
+                    newNode.next = this.head;
+                    this.head = newNode;
+                    //return this.head;			
+                }
+                    
+                //increment the node count/size
+                this.size++;		
+            }//insertFirst
+		   
+
+            /****** delete from start ******/
+            deleteFirst(){
+		        if(this.head == null)
+			        return document.write("<br>No nodes to delete. List is empty.");
+		        else{
+                    var deletedNode = this.head;
+			        this.head = this.head.next;
+                     //decrement the size
+                    this.size--;
+			        return document.write("<br>" + deletedNode.element + " is deleted from the list. ");
+		        }   
+	        }//deleteFirst
+
+            /****** delete from specific index ********/
+            deleteFrom(index){
+                //cse1: if index is greatr then 0
+                if(index < 0 || index > this.size)
+                    return document.write("<br>invalid index. Enter a valid index number: ");
+                    
+                //case 2: if index is grtr then0
+                else{
+                    var tempNode, prevNode, i=0;
+                    tempNode = this.head;
+                        
+                    // case a: if index is 0
+                    if(index == 0){
+                        this.head = tempNode.next;
+                        return document.write("<br>" + tempNode.element + " is deleted from the index: " + index);
+                    }
+
+                    else{
+                        //itererate over the list till the index
+                        while(i < index){
+                           
+                            prevNode = tempNode;
+                            tempNode = tempNode.next;
+                            i++;
+                        }
+                            
+                        //remove the element
+                        prevNode.next = tempNode.next;
+                    }
+                    //decrement the list count/size
+                    this.size--;
+        
+                    //return the deleted element
+                    return document.write("<br>" + tempNode.element + " is deleted from the index: " + index);
+                }//else
+                
+            }//deleteAtPosition	
+
+            /******** deleting from end ******/
+            deleteEnd(){
+                if(this.head == null)
+			        return document.write("<br>No nodes to delete. List is empty.");
+                    
+                //if list has one node only
+                else if(this.head.next== null){
+                    var deletedNode = this.head;   //to return deleted element
+                    this.head = null;
+                    
+                    // decrement the list size
+                    this.size--;
+                    //return deleted node
+                    return document.write("<br>" + deletedNode.element + " is deleted from the list. ");
+                }
+                    
+                //if there are more then one node in List
+                else{
+                    var prevNode = this.head;
+                    var tail = this.head.next;    //end of  list
+                        
+                    //traverse the list till tail
+                    while(tail.next != null){
+                        prevNode = tail;
+                        tail = tail.next;
+                    }
+                        
+                    prevNode.next = null;
+                    this.size--;
+                    //return this.head;
+                    return document.write("<br>" + tail.element + " is deleted from the list. ");
+                }
+            }//deleteEnd
+		    
+
+            /******* reverse list *******/
+            reverseList(){
+                //case1 : if list is empty or if there is only one node
+                //if(this.head == null || this.head.next == null);
+                  //  return document.write(this.head+" ==> "+"null");
+
+                //case 2
+                
+                //Reverse the linked list
+                var current = this.head;
+                var previous, next = null;
+                while(current!=null)
+                {
+                next= current.next;
+                current.next=previous;
+                previous=current;
+                current=next;
+                }
+                this.head=previous;
+                //return reversedList;
+            }//reversedList
+                
+
+            /******* to display the list *******/
+            displayList(){
+                if(this.head == null)
+                    document.write("<br>List is empty....<br>");
+                else{
+                    var currentNode = this.head;
+                    document.write("<br>Linked list: ");
+                    while(currentNode){
+                        document.write(currentNode.element + " ==> ");
+                        currentNode = currentNode.next;
+                    }
+                    document.write("Null<br/>");
+                }	  
+	        }//display	
+            
+        }//LinkedList
+
+        //object creation:
+        var sll = new LinkedList();
+        sll.displayList();    //shld disply list is empty
+        document.write("<br><b>Inserting 10,20,80,160 in the list:</b>")
+        sll.insert(10);
+        sll.insert(20);
+        sll.insert(50);
+        sll.insert(100);
+        sll.displayList();
+
+        document.write("<br><b>Inserting 40 at index : 2</b>");
+        sll.insertAtIndex(2,30);
+        sll.displayList();
+        
+        document.write("<br><b>Inserting 5 at first, then inserting  0 at first</b>");
+        sll.insertFirst(5);
+        sll.insertFirst(0);
+        sll.displayList();
+
+        //to delete
+        document.write("<br><b>Deleting node from beginning: </b>")
+        sll.deleteFirst();
+        sll.displayList();
+        sll.deleteFirst();
+        sll.displayList();
+        
+        document.write("<br><b>Deleting node from a specific index num:</b>");
+        sll.deleteFrom(10);
+        sll.deleteFrom(1);
+        sll.displayList();
+        
+        document.write("<br><b>Deleting node from end: </b>");
+        sll.deleteEnd();
+        sll.displayList();
+
+        document.write("<br><b>Reversal of the list :</b>");
+        sll.reverseList();
+        sll.displayList();
+    </script>
+</body>
+</html>
