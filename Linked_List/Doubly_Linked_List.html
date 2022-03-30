@@ -1,0 +1,284 @@
+<!DocType html>
+<html>
+ <head>
+ <title>DLL_q3</title>
+ </head>
+ <body>
+ <script>
+    class Node { 
+        // constructor 
+        constructor(element) { 
+        this.element = element; 
+        this.next = null
+        this.previous = null
+        } 
+    }//node
+
+    class LinkedList{ 
+        constructor() { 
+            this.head = null;
+            this.tail = null;
+            this.size = 0; 
+        } 
+       
+        //isEmpty
+        isEmpty(){
+            if(this.head ==null)
+                return true;
+            else 
+                return false;
+        }//isEmpty
+
+        //insert element at begining
+        insertAtBegining(element){
+            var newNode = new Node(element);
+            // if list is empty
+            if (this.isEmpty()) {
+                this.head = newNode;
+                this.tail = newNode; 
+            }
+
+            // Insertion at head
+            else{
+                newNode.next = this.head;
+                this.head.prev = newNode;
+                this.head = newNode;
+            }
+            this.size++;
+            return true;
+        }//insert at beg
+
+        //insert element at end
+        insertAtEnd(element){
+            var newNode = new Node(element);
+            //if list is  empty
+            if(this.isEmpty()) 
+                this.head = this.tail = newNode;
+
+            else{            
+                this.tail.next = newNode;
+                newNode.previous = this.tail;
+                this.tail = newNode;
+            }   
+            this.size++;  
+            return true;
+        }//insertAt end
+        
+        ///insert element at given position
+        insertAtPosition(index,element){
+            var newNode = new Node(element);
+
+            //if index is negtive int or greator the list size
+            if (index <0 || index > this.size) 
+                document.write("<br>Invalid Index!! Enter a valid index number.");
+            
+            //if index is 0 or list is empty
+            else if(this.isEmpty())
+                this.insertAtBegining(element);
+            
+            //if index is 1
+            else if(index ==1){
+                newNode.next = this.head;
+                this.head.previous = newNode;
+                this.head = newNode;
+            }
+
+            else{          
+                let current = this.head;
+                //traverse till index val
+                for (let i = 1; i <= index; i++) {
+                    current = current.next;
+                }
+                let previousNode = current.previous;
+                newNode.next = current;
+                newNode.previous = previousNode; //current.previous.next
+                previousNode.next = newNode;
+                current.previous = newNode;
+            }//else
+
+            this.size++;
+            return true;
+        }//insertat
+
+        // Remove node from tail
+        DeleteAtBegining(){
+            //if list is empty
+            if(this.isEmpty())
+                document.write("<br>No nodes to delete. List is empty.");
+
+            //if list has one node only
+             if(this.head.next == null){
+                this.head = null;
+                this.tail = null;
+            }
+
+            // if list is nt empty nd has more than 1 node
+            else{
+                let removedHead = this.head;
+                this.head = this.head.next;
+                this.head.previous = null;
+                document.write("<br>Removed Element : "+removedHead.element);
+                this.size--;
+            }//else
+        }//delet at beg
+
+         // remove at specific index
+         DeleteAtPosition(index){
+            //if index val is less than 0 or greator then link list length.
+            if(index <0 || index > this.size)
+                document.write("<br><b>Index out of bound</b>");
+
+            //if list is empty
+            if(this.isEmpty()){
+                this.head = null;
+                this.tail = null;
+            }
+
+            //if index val = 0 or ,to insert element at top
+            else if (index == 1) {
+                this.DeleteAtBegining();
+            }
+
+            else{
+                let currentHead = this.head;
+                for (let i = 0; i < index; i++) {
+                    currentHead = currentHead.next;
+                }
+
+                currentHead.previous.next =  currentHead.next;
+                currentHead.next.prev = currentHead.previous
+                document.write(currentNode.element +" Element removed at index: "+index);
+            }//else
+         }//deleteAtPosition
+        
+        //Delete element at end
+        DeleteAtEnd(){
+            //if list is empty
+            if(this.isEmpty())
+                document.write("<br>No nodes to delete. List is empty.");
+            
+            //if list has one node only
+             if(this.head.next == null){
+                this.head = null;
+                this.tail = null;
+            }
+                
+                
+            else{
+                let removedTail =  this.tail;
+                this.tail.previous = this.tail;
+                document.write("<br>Removed Element : "+removedTail.element); 
+            }
+
+            this.size--;
+        }//deletionAtEnd
+        
+        //Display current list
+        displayList() {
+            if(this.isEmpty())
+                document.write("<br>List is empty....<br>");
+            else{
+                var currentNode = this.head;
+                document.write("<br><b>Linked list: </b>");
+                while(currentNode){
+                    document.write(currentNode.element + " ==> ");
+                    currentNode = currentNode.next;
+                }
+                document.write("Null<br/>");
+            }//else
+        }//displayList
+
+        /*return element's index if found
+        SearchElement(element) 
+        {
+        document.write("Element for search: "+element+"<br>");
+        var current = this.head;
+        var counter =0;
+        while (current) 
+        {
+        if(current.element ==element)
+        {
+        document.write(element+" Element found at: "+counter);
+        return counter;
+        }
+        counter++;
+        current = current.next;
+        }
+        document.write("<br>Element not found...!");
+        return -1;
+        }
+        */
+    }//linkedList
+
+    //obj cetion
+    var dll = new LinkedList();
+    document.write("<b>______Doubly Link List_______</b><br>");
+    dll.displayList();    //shld disply list is empty
+    document.write("<br><b>Inserting 20,50,100 in the list:</b>")
+       
+        /*if(dcll.insert(5))
+            //document.write("element inseserted");
+        if(dll.insertAtBegining(10))
+            document.write("<br>element inseserted at beg ");
+        if(dll.insertAtEnd(20))
+            document.write("<br>element inseserted at end");
+        if(dll.insertAtPosition(1,15))
+            document.write("<br>element inseserted at position");
+
+        dll.DeleteAtBegining();
+        dll.DeleteAtBegining();
+        dll.DeleteAtBegining();
+
+        document.write("<br><b>Deleting node from a specific index num:</b>");
+        dll.DeleteAtPosition(10);
+        dll.DeleteAtPosition(1);
+
+        if(dll.insertAtBegining(10))
+            document.write("<br>element inseserted at beg ");
+        if(dll.insertAtEnd(20))
+            document.write("<br>element inseserted at end");
+            
+        document.write("<br><b>Deleting node from end: </b>");
+        dll.DeleteAtEnd()
+
+        dll.displayList();*/
+       
+        dll.insertAtBegining(20);
+        dll.insertAtBegining(50);
+        dll.insertAtBegining(100);
+        dll.displayList();
+    
+        document.write("<br><b>Inserting 40 at index : 2</b>");
+        dll.insertAtPosition(20,2); // at index 2 insert 40
+        dll.displayList();
+        
+        document.write("<br><b>Inserting 5 at end then inserting  0 at end</b>");
+        dll.insertAtEnd(5)
+        dll.insertAtEnd(0);
+        dll.displayList();
+
+        //to delete
+        document.write("<br><b>Deleting node from beginning: </b>")
+        dll.DeleteAtBegining();
+        dll.displayList();
+        dll.DeleteAtBegining();
+        dll.displayList();
+        
+        document.write("<br><b>Deleting node from a specific index num:</b>");
+       //dll.DeleteAtPosition(10);
+        dll.DeleteAtPosition(1);
+        dll.displayList();
+        
+        document.write("<br><b>Deleting node from end: </b>");
+        dll.DeleteAtEnd();
+        dll.displayList()  
+        dll.DeleteAtEnd();
+        dll.displayList();
+
+        //document.write("<br><b>Search for: 208:</b>");
+        //dll.SearchElement(208);
+        //dll.displayList();
+        
+ </script>
+ </body>
+</html>
