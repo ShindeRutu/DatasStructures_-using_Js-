@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parenthesis_Match</title>
+</head>
+<body>
+    <script>
+        class Node{
+            constructor(element){
+                this.nodeElement = element;
+                this.next = null;
+            }
+        }
+
+        class Stack{
+            constructor(){
+                this.top = null;  // can be head also
+            }
+            
+            isEmpty(){
+                if(this.top == null) // or if(this.stk_count ==0)
+                    return true;
+                else
+                    return false;
+            }//isEmpty
+
+            push(element){
+                //create a node
+                let newNode = new Node(element);
+                
+                //if stack is empty
+                if(this.isEmpty())
+                    this.top = newNode;
+                
+                else{
+                    newNode.next = this.top;   //store adr of top in newNode.addresspart
+                    this.top = newNode;
+                }
+            }//push
+
+            pop(){
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<br><b> Stack underflow!! </b>");
+                
+                else{
+                    var popped_ele =  this.top;
+                    this.top= this.top.next;;
+                    document.write("<br><b> Poped element : </b>" +popped_ele.nodeElement);
+                }//else
+            }//pop
+
+            parenthesisMatch(exp){
+                for(let i = 0; i < exp.length; i++){
+                    //check if exp[i] =={,(,[) ==>push
+                    if(exp[i]=='{' || exp[i] =='(' ||exp[i] =='['){
+                        this.push(exp[i]);
+                        continue;
+                    }
+
+                    //if stack is empty
+                    else if(this.isEmpty())
+                        return false;
+                        
+                    //else pop if exp[i] == },),]
+                    else{
+                        if(exp[i]=='}' || exp[i] ==')' ||exp[i] ==']'){
+                            //if exp[0] == '}' ||"]" ||')' ==> pop
+
+                            if( exp[i] == '}' && this.peek == '{')
+                                this.pop();
+                    
+                            else if( exp[i] == ']' && this.peek == '[')
+                                this.pop();
+                                
+                            else if( exp[i] == ')' && this.peek == '(')
+                                this.pop();
+                        }//if
+                    }//else
+                }//for
+
+                //if stack is empty atfer performing push nd pop operatiosn. 
+                if(this.isEmpty())
+                    return true;  
+            }//ParenthesisMAtch   
+        }//Stack
+
+        //obj crt
+        let stk = new Stack();
+        document.write("<b>______Stack App: Parenthesis Match_______</b><br>");
+         
+        exp = '({[{}()[](){}]})';
+        document.write("<br><br><b>1.Expression entered : </b> " + exp);
+        if(!stk.parenthesisMatch(exp))
+            document.write("<br> Parenthesis matched. its a balanced eq.");
+        else
+            document.write("<br> Parenthesis do not matched. its an inbalanced eq.");
+        
+        exp1 = '{[[())]{';
+        document.write("<br><br><b>2.Expression entered : </b> " + exp1);
+        if(stk.parenthesisMatch(exp1))
+            document.write("<br> Parenthesis matched. its a balanced eq.");
+        else
+            document.write("<br> Parenthesis do not matched. its an inbalanced eq.");
+
+        exp2 = ' ';
+        document.write("<br><br><b>3.Expression entered : a white space </b> " + exp2);
+        if(stk.parenthesisMatch(exp2))
+            document.write("<br> Parenthesis matched. its a balanced eq.");
+        else
+            document.write("<br> Parenthesis do not matched. its an inbalanced eq.");
+    </script>
+</body>
+</html>

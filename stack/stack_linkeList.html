@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stack LinkedList</title>
+</head>
+<body>
+    <script>
+        class Node{
+            constructor(element){
+                this.nodeElement = element;
+                this.next = null;
+            }
+        }
+
+        class Stack{
+            constructor(){
+                this.top = null;  // can be head also
+            }
+            
+            //isEmpty
+            isEmpty(){
+                if(this.top == null) // or if(this.stk_count ==0)
+                    return true;
+                else
+                    return false;
+            }
+
+            //push
+            push(element){
+                //create a node
+                let newNode = new Node(element);
+                
+                //if stack is empty
+                if(this.isEmpty())
+                    this.top = newNode;
+                
+                else{
+                    newNode.next = this.top;   //store adr of top in newNode.addresspart
+                    this.top = newNode;
+                }
+            }//push
+
+            pop(){
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<br><b> Stack underflow!! </b>");
+                
+                else{
+                    var popped_ele =  this.top;
+                    this.top= this.top.next;
+                    document.write("<br><b> Poped element : </b>" +popped_ele.nodeElement);
+                }//else
+            }//pop
+
+            printStack(){
+                document.write("<br><b> Elements in the stack :: </b>");
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<b> Stack underflow!! </b>");
+                
+                else{
+                    let tempNode = this.top;
+                    while(tempNode){
+                        document.write(tempNode.nodeElement + " ==> ");
+                        tempNode= tempNode.next;
+                    }
+                    document.write(" Null <br>");
+                }//else
+            }//printStack
+
+            
+        }//Stack
+
+        //obj crtion
+        let stk =  new Stack();
+        document.write("<b>______Stack implementation using LinkedList_______</b><br>");
+       
+        document.write("<br><br><b>1. Intial Stack state. </b>");
+        stk.printStack();    //shld disply stack is empty (underflow)
+
+        document.write("<br><br><b>2. Push 10,20...90,100 on to the stack.</b>");
+        stk.push(10);
+        stk.push(20);
+        stk.push(30);
+        stk.push(40);
+        stk.push(50);
+        stk.push(60);
+        stk.push(70);
+        stk.push(80);
+        stk.push(90);
+        stk.push(100);
+        document.write("<br><br><b>3. Print the Stack: </b>");
+        stk.printStack();
+        
+        document.write("<br><br><b>4.Push 110 on to the stack.</b>");
+        stk.push(110); //shld display overflow
+        document.write("<br><b>5. Print the Stack: </b>");
+        stk.printStack();
+        
+        //to delete
+        document.write("<br><br><b>6. Pop 10 elementsfrom the stack. </b>");
+        //let pop it for 9 times
+        for(var i=0; i<10;i++)
+            stk.pop();
+            
+        document.write("<br><br><b>7. Print the Stack: </b>");
+        stk.printStack();
+
+        document.write("<br><br><b>8. Pop the elements: </b>");
+        stk.pop(); //shld display underflow
+
+        document.write("<br><br><b>9. Print the Stack after poping all elements : </b>");
+        stk.printStack(); // shld display :no items to print*/
+    </script>
+</body>
+</html>

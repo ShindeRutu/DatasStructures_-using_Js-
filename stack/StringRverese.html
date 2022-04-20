@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>String_Reverse_using_stack</title>
+</head>
+<body>
+    <script>
+        class Stack{
+            constructor(size){
+                this.top = -1;   //initially set to null
+                this.maxSize = size;
+                this.stackArray =[];
+            }
+
+            //if stack is element
+            isEmpty(){
+                if(this.top == -1)
+                    return true;
+                else 
+                    return false;
+            }
+
+            //if stack is full
+            isFull(){
+                if(this.top == this.maxSize-1)
+                    return true;
+                else 
+                    return false;
+            }
+
+            // insert elements : push
+            push(element){
+                // if stack is full
+                if(this.isFull())
+                    document.write("<br><b>Stack Overflow!! </b>");
+                
+                else{
+                    //increment top 
+                    this.top +=1;
+                    this.stackArray[this.top] = element;
+                }
+            }//push
+            
+            //display the stack
+            printStack(){
+                document.write("<br><b>Elements in the stack :: </b>");
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<b>Stack underflow!! </b>");
+                
+                else{
+                        for(var i = this.top ; i>= 0; i--)
+                            document.write(" " + this.stackArray[i] + " ");
+                }//else
+            }//displayStack
+
+            //to rev string in the stack;
+            reverse_String(str){
+                for(let i= 0; i<str.length; i++)
+                    this.push(str[i]);
+            }
+
+        }//class stack
+
+        //obj crtion nd func calling
+        str = 'Data structure and javaScript';
+        var st = new Stack(str.length);    //let the size of stack be str length
+        
+        document.write("<b>______String Reverse using stack_______</b><br>");
+        document.write("<br><br><b>Intial Stack state : </b>");
+        st.printStack();    //shld disply stack is empty (underflow)
+
+        document.write("<br><br><b>Input string : " + str + "</b>");
+        st.reverse_String(str);
+        
+        document.write("<br><br><b>Reversed string in stack :: </b>");
+        st.printStack();
+
+    </script>
+</body>
+</html>

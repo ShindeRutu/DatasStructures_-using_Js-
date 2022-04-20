@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stack LinkedList</title>
+</head>
+<body>
+    <script>
+        class Node{
+            constructor(element){
+                this.nodeElement = element;
+                this.next = null;
+            }
+        }//Node
+
+        class Stack{
+            constructor(){
+                this.top = null;  // can be head also
+            }
+            
+            //isEmpty
+            isEmpty(){
+                if(this.top == null) // or if(this.stk_count ==0)
+                    return true;
+                else
+                    return false;
+            }
+
+            //push
+            push(element){
+                //create a node
+                let newNode = new Node(element);
+                
+                //if stack is empty
+                if(this.isEmpty())
+                    this.top = newNode;
+                
+                else{
+                    newNode.next = this.top;   //store adr of top in newNode.addresspart
+                    this.top = newNode;
+                }
+            }//push
+
+            pop(){
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<br><b> Stack underflow!! </b>");
+                
+                else{
+                    var popped_ele =  this.top;
+                    this.top= this.top.next;
+                    document.write("<br><b> Poped element : </b>" +popped_ele.nodeElement);
+                }//else
+            }//pop
+
+            printStack(){
+                document.write("<br><b> Elements in the stack :: </b>");
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<b> Stack underflow!! </b>");
+                
+                else{
+                    let tempNode = this.top;
+                    while(tempNode){
+                        document.write(tempNode.nodeElement + " ==> ");
+                        tempNode= tempNode.next;
+                    }
+                    document.write(" Null <br>");
+                }//else
+            }//printStack
+
+            parethesis_match(exp){
+                for(let i=0; i< exp.length; i++){
+                    let x = exp[i];
+
+                    if(x=='(' ||x =='[' ||x=='{'){
+                        //push element onto the stack
+                        this.push(x);
+                        continue;
+                    }//if
+
+                    //if stack is empty
+                    if(this.isEmpty())
+                        return false;
+                    
+                    else{
+                        let check;
+                        switch(x){
+                            
+                            case ')':   check = this.pop();
+                                        if(check == '{' || check == '[')
+                                            return false;
+                                        break;
+                            
+                            case '}':   check = this.pop();
+                                        if(check == '(' || check == '[')
+                                            return false;
+                                        break;
+
+                            case ']':   check = this.pop();
+                                        if(check == '{' || check == '(')
+                                            return false;
+                                        break;
+                        }//switch
+                    }//else
+                }//for
+                    //check if stack is empty
+                    if(this.isEmpty())
+                        return true;
+            }//parenthesis_match
+            
+        }//Stack
+
+        //obj crtion
+        let stk =  new Stack();
+        document.write("<b>______Stack implementation using LinkedList_______</b><br>");
+       
+        document.write("<br><br><b>1. Intial Stack state. </b>");
+        stk.printStack();    //shld disply stack is empty (underflow)
+
+        exp1 = '[(())]';
+        document.write("<br><br><b>2.Expression entered : </b> " + exp1);
+        if(stk.parethesis_match(exp1))
+            document.write("<br> Parenthesis matched. its a balanced eq.");
+        else
+            document.write("<br> Parenthesis do not matched. its a inbalanced eq.");
+       
+    </script>
+</body>
+</html>

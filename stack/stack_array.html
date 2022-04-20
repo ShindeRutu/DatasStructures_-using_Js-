@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>stack using array</title>
+</head>
+<body>
+    <script>
+        class Stack{
+            constructor(size){
+                this.top = -1;   //initially set to null
+                this.maxSize = size;
+                this.stackArray =[];
+            }
+
+            //if stack is element
+            isEmpty(){
+                if(this.top == -1)
+                    return true;
+                else 
+                    return false;
+            }
+
+            //if stack is full
+            isFull(){
+                if(this.top == this.maxSize-1)
+                    return true;
+                else 
+                    return false;
+            }
+
+            // insert elements : push
+            push(element){
+                // if stack is full
+                if(this.isFull())
+                    document.write("<br><b>Stack Overflow!! </b>");
+                
+                else{
+                    //increment top 
+                    this.top +=1;
+                    this.stackArray[this.top] = element;
+                }
+            }//push
+
+            
+            //delete element : pop
+            pop(){
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<br><b>Stack underflow!! </b>");
+                
+                else{
+                    var popped_ele =  this.stackArray[this.top];
+                    this.top -=1;
+                    document.write("<br><b>Poped element : </b>" +popped_ele);
+                }
+            }//pop
+
+            //to return top val
+            peek(){
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<b> Stack underflow!! </b>");
+                else
+                    document.write(" "+this.stackArray[this.top]);
+            }
+
+            //display the stack
+            printStack(){
+                document.write("<br><b>Elements in the stack :: </b>");
+                //if stack is empty
+                if(this.isEmpty())
+                    document.write("<b>Stack underflow!! </b>");
+                
+                else{
+                        for(var i = this.top ; i>= 0; i--)
+                            document.write("  " + this.stackArray[i]);
+                }//else
+            }//displayStack
+
+        }//class stack
+
+        //obj crtion nd func calling
+
+        var st = new Stack(10);    //assume size of stack as 10
+        document.write("<b>______Stack implementation using Array_______</b><br>");
+        document.write("<br><br>Lets Assume stack size to be 10. </b>");
+        document.write("<br><br><b>Intial Stack state : </b>");
+        st.printStack();    //shld disply stack is empty (underflow)
+
+        document.write("<br><br><b>Peek element of Stack: </b>");
+        st.peek();  //shld return underflow
+        
+        document.write("<br><br><b>Push 10,20...90,100 on to the stack:</b>");
+        st.push(10);
+        st.push(20);
+        st.push(30);
+        st.push(40);
+        st.push(50);
+        st.push(60);
+        st.push(70);
+        st.push(80);
+        st.push(90);
+        st.push(100);
+        document.write("<br><br><b>Print the Stack: </b>");
+        st.printStack();
+        
+        document.write("<br><br><b>Push 110 on to the stack:</b>");
+        st.push(110); //shld display overflow
+        document.write("<br><br><b>Print the Stack: </b>");
+        st.printStack();
+        
+        document.write("<br><br><b>Peek element of Stack:: </b>");
+        st.peek();  //shld return underflow
+
+        //to delete
+        document.write("<br><br><b>Pop the elements: </b>");
+        //let pop it for 9 times
+        for(var i=0; i<9;i++)
+            st.pop();
+            document.write("<br><br><b>Print the Stack : </b>");
+        st.printStack();
+
+        document.write("<br><br><b>Pop the elements: </b>");
+        st.pop(); //shld display underflow
+
+        document.write("<br><br><b>Print the Stack after poping all elements : </b>");
+        st.printStack(); // shld display :no items to print*/
+
+    </script>
+    
+</body>
+</html>
