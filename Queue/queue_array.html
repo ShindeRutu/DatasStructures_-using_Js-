@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Queue using array</title>
+</head>
+<body>
+    <script>
+        class Queue{
+            constructor(size){
+                this.front = -1;
+                this.rear = -1;
+                this.maxSize = size-1;
+                this.queueArray =[this.maxSize];
+            }
+
+            //if queue is element
+            isEmpty(){
+                if(this.rear == this.front)
+                    return true;
+                else 
+                    return false;
+            }
+
+            //if queue is full
+            isFull(){
+                if(this.rear== this.maxSize)
+                    return true;
+                else 
+                    return false;
+            }
+
+            // insert elements : enqueue
+            enqueue(newElement){
+                // if queue is full
+                if(this.isFull())
+                    document.write("<br><b>Queue Overflow!! </b>");
+                
+                else{
+                    this.queueArray[this.rear] = newElement;
+                    this.rear++;   //increment rear
+                    document.write("<br><br>Element enqueued : " + newElement + " at index : " + this.rear);
+                } //else
+            }//enqueue
+
+            
+            //delete element : dequeue
+            dequeue(){
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<br><b>Queue Underflow!! </b>");
+                
+                else{
+                    let dq_ele =  this.queueArray[this.front];
+                    this.front++;
+                    document.write("<br><b>dequeud element : </b>" +dq_ele);
+                }
+                
+            }// dequeue
+
+            //display the queue
+            printQueue(){
+                document.write("<br><b>Elements in the queue :: </b>");
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<b>Queue underflow!! NO data to print. </b>");
+
+                else{
+                    var i = this.front
+                    document.write( this.queueArray[i]);
+                    i++;
+                    while(i<this.rear){ 
+                        document.write(" <== " + this.queueArray[i]  );
+                        i++;
+                    }
+                }//else
+            }//printQueue
+
+        }//class Queue
+
+        //obj crtion nd func calling
+        var q = new Queue(10);    //assume size of stack as 10
+       
+        document.write("<br><b>______Queue implementation using array_______</b><br>");
+        document.write("<br>front <==[=][ ][ ][ ][ ][ ][ ]<== rear");
+        document.write("<br><br><b>1. Queue size : 10 <br>Intial Queue state. </b>");
+        q.printQueue();
+
+        document.write("<br><br><b><hr>2. Enqueue 10,20...90,100 in queue.</b>");
+        let i = 0 , ele = 10;
+        while( i<10){
+            q.enqueue(ele);
+            i++;
+            ele+=10;
+            q.printQueue();
+        }
+
+        document.write("<br><br><b><hr>3. Rear element: " + q.queueArray[q.rear-1] + " ::: Front element: " +  q.queueArray[q.front] +"</b>");
+
+        document.write("<br><br><b>4. Enqueue 110 in queue.</b>");
+        q.enqueue(110);
+        q.printQueue();
+
+        //to dequeue elemenst from queue
+        document.write("<br><br><b><hr>5. Dequeue 9 elements from the queue. </b>");
+        //lets de_q it  9 times
+        let j = 0;
+        while(j<9){
+           q.dequeue();
+           q.printQueue();
+           j++;
+        }
+
+        document.write("<br><br><b><hr>6. Rear element: " + q.queueArray[q.rear-1] + " ::: Front element: " +  q.queueArray[q.front] +"</b>");
+        document.write("<br><br><b>7. Dequeue twice from the queue. </b>");
+        document.write("<br> Once dequeued : : "); q.dequeue();
+        q.printQueue();
+        document.write("<br> 2nd dequeue : : "); q.dequeue();
+    </script>
+    
+</body>
+</html>

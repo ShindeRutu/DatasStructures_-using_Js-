@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QueueLinkedList</title>
+</head>
+<body>
+    <script>
+        class Node{
+            constructor(element){
+                this.nodeElement = element;
+                this.next = null;
+            }
+        }//node
+
+        class Queue{
+            constructor(){
+                this.front = null; // del ele
+                this.rear = null;  // insert ele : can be head also
+            }
+            
+            //isEmpty
+            isEmpty(){
+                if(this.rear == null) // this.front==null
+                    return true;
+                else
+                    return false;
+            }
+
+            enqueue(element){
+                //create a node
+                let newNode = new Node(element);
+                
+                //if queue is empty
+                if(this.isEmpty()){
+                    this.rear = newNode;
+                    this.front= this.rear;
+                }
+                
+                else{
+                       this.rear.next = newNode;
+                       this.rear = newNode;
+                }  
+            }
+            
+            dequeue(){
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<br><b> Queue underflow!! </b>");
+                
+                else{
+                    var dequeue_ele =  this.front;
+                    this.front= this.front.next;
+                    document.write("<br><b> Element dequeued : </b>" +dequeue_ele.nodeElement);
+                }//else
+                if(this.front == null)
+                    this.rear = null;
+            }//pop
+
+            printQueue(){
+                document.write("<br><b> Elements in the Queue :: </b>");
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<b> Queue underflow!! </b>");
+                
+                else{
+                    let tempNode = this.front;
+                    while(tempNode){
+                        document.write(tempNode.nodeElement + " <== ");
+                        tempNode= tempNode.next;
+                    }
+                    document.write("<br>");
+                }//else
+            }//printQueue
+        }//Queue
+
+        //obj crtion
+        let q =  new Queue();
+        document.write("<br><b>______Queue implementation using LinkedList_______</b><br>");
+        document.write("<br>front <==[=][ ][ ][ ][ ][ ][ ]<== rear");
+        document.write("<br><br><b>1. Intial Queue state. </b>");
+        q.printQueue();
+
+        document.write("<br><br><b><hr>2. Enqueue 10,20...90,100 in queue.</b><br>");
+        let i = 10;
+        while( i<100){
+            q.enqueue(i);
+            document.write("Element enqueued : " + i);
+            q.printQueue();
+            i+=10;
+        }
+
+        document.write("<br><b><hr>3. Rear element: " + q.rear.nodeElement + "  :::  Front element : " + q.front.nodeElement  + "</b>");
+
+        document.write("<br><br><b><hr>5. Dequeue 8  elements from the queue. </b>");
+        //let dq it for 8 times
+        let j = 1;
+        while(j<=8){
+           q.dequeue();
+           j++;
+           q.printQueue();
+        }
+
+        document.write("<br><br><b><hr>7. Dequeue 2 elements: </b>");
+        q.dequeue();
+        q.printQueue();
+        q.dequeue();
+        
+    </script>
+</body>
+</html>

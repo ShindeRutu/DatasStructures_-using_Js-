@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priority_Queue</title>
+</head>
+<body>
+    <script>
+        class Element{
+            constructor(ele, priority){
+                this. element = ele;
+                this.priorityNum = priority;
+            }
+        }//Node
+
+        class Priority_Queue{
+            constructor(){
+                this.queueItems = [];
+            }//constructor
+
+            isEmpty(){
+                if(this.queueItems.length ==0)
+                    return true;
+                else
+                    return false;
+            }//isEmpty
+
+            enqueue(ele,priority){
+                let newElement = new Element(ele,priority);
+                let contain = false;  // intially set it to false
+                // iterate through the entire array to add ele at correct loc
+                for(let i = 0; i<this.queueItems.length; i++){
+                    if(this.queueItems[i].priorityNum > newElement.priorityNum){
+                        this.queueItems.splice(i,0,newElement);
+                        this.contain= true;
+                        break;
+                    }
+                }//for
+                //if new ele have higher priority then push ele at end of array
+                if(!this.contain)
+                    this.queueItems.push(newElement);
+
+                document.write("<br><br>Element enqueued : " + newElement.element + " with priority : " + newElement.priorityNum);
+            }//enqueue
+
+            // TO DEL ELEMENST FROM QUEUE
+            dequeue(){
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<br><b> Queue underflow!!  NO elements to dequeue. </b>");
+                else
+                    document.write("<br><br><b> Element dequeued : </b>" + this.queueItems.shift().element);  //shift() will del 1st ele of array
+            }//dequeue
+
+            //TO PRINT THE QUEUE
+            printQueue(){
+                document.write("<br><b> Elements in the Queue :: </b>");
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<b> Queue underflow!! NO elements to print. </b>");
+                
+                else{
+                    document.write( this.queueItems[0].element);
+                    for(let i=1; i< this.queueItems.length;i++)
+                        document.write( " <== " + this.queueItems[i].element );
+                }//else
+            }//printQueue
+        }//Priority_queue
+
+
+         //obj crtion nd func calling
+         var pq = new Priority_Queue();  
+       
+        document.write("<br><b>______ Priority Queue implementation _______</b><br>");
+        document.write("<br>front <==[=][ ][ ][ ][ ][ ][ ]<== rear");
+        document.write("<br><br><b>1.Intial Queue state. </b>");
+        pq.printQueue();
+
+        document.write("<br><br><b><hr>2. Enqueue [10,2] ,[100,5], [30,3] , [05,2] ,[40,4] , [20,1] in queue.</b>");
+        pq.enqueue(10,2);
+        pq.printQueue();
+        pq.enqueue(100,5);
+        pq.printQueue();
+        pq.enqueue(30,3);
+        pq.printQueue();
+        pq.enqueue(5,2);
+        pq.printQueue();
+        pq.enqueue(40,4);
+        pq.printQueue();
+        pq.enqueue(20,1);
+        pq.printQueue();
+
+        document.write("<br><b><hr>3. Rear element and front element </b>"); 
+        document.write("<br> Rear Element: " + pq.queueItems[pq.queueItems.length-1].element + " <br> Front Element: " + pq.queueItems[0].element);
+        pq.printQueue();
+        
+        document.write("<br><br><b><hr>4. Dequeue 6  elements from the queue. </b>");
+        //let pop it for 4 times
+        let j = 0;
+        while(j<6){
+           pq.dequeue();
+           pq.printQueue();
+           j++;
+        }
+
+        
+    </script>
+</body>
+</html>

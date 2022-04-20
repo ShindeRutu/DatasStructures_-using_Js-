@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circular_QueueLinkedList</title>
+</head>
+<body>
+    <script>
+        class Node{
+            constructor(element){
+                this.nodeElement = element;
+                this.next = null;
+            }
+        }//node
+
+        class Circular_Queue{
+            constructor(){
+                this.front = null; // del ele
+                this.rear = null;  // insert ele : can be head also
+            }
+            
+            //isEmpty
+            isEmpty(){
+                if(this.front == null && this.rear == null)
+                    return true;
+                else
+                    return false;
+            }
+
+            enqueue(element){
+                //create a node
+                let newNode = new Node(element);
+                
+                //if queue is empty
+                if(this.isEmpty()){
+                    this.rear =  this.front = newNode;
+                    
+                }
+                
+                else{
+                       this.rear.next = newNode;
+                       this.rear = newNode;
+                }
+                this.rear.next =  this.front; // this will make rear.next point at front. hence making circular q  
+                document.write("<br><br>Element enqueued : " + newNode.nodeElement);
+            }//enqueue
+            
+            dequeue(){
+                //if queue is empty
+                if(this.rear == null)
+                    document.write("<br><b> Queue underflow!!  NO elements to dequeue. </b>");
+                //if only one node is present 
+                if(this.rear == this.front){
+                    document.write("<br><br><b> Element dequeued : </b>" +this.front.nodeElement);
+                    this.front = null;
+                    this.rear = null;
+                }
+                else{
+                    var dequeue_ele =  this.front;
+                    this.front= this.front.next;
+                    this.rear.next = this.front;  // making rear.next to point at front
+                    document.write("<br><br><b> Element dequeued : </b>" +dequeue_ele.nodeElement);
+                }//else
+            }//pop
+
+            printQueue(){
+                document.write("<br><b> Elements in the Queue :: </b>");
+                //if queue is empty
+                if(this.isEmpty())
+                    document.write("<b> Queue underflow!! </b>");
+                
+                else{
+                    let tempNode = this.front;
+                    do{
+                        document.write(tempNode.nodeElement + " <== ");
+                        tempNode= tempNode.next;
+                    }while(tempNode!= this.front);
+                    document.write(tempNode.nodeElement );  // to make it look circular
+                }//else
+
+                 
+            }//printQueue
+        }//Queue
+
+        //obj crtion
+        let cq =  new  Circular_Queue();
+        document.write("<br><b>______Circular Queue implementation using LinkedList_______</b><br>");
+        document.write("<br>front <==[=][ ][ ][ ][ ][ ][ ]<== rear");
+        document.write("<br><br><b>1. Intial Queue state. </b>");
+        cq.printQueue();
+
+        document.write("<br><br><b><hr>2. Enqueue 10,20...90,100 in queue.</b>");
+        let i = 10;
+        while( i<110){
+            cq.enqueue(i);
+            cq.printQueue();
+            i+=10;
+        }
+
+        document.write("<br><b><hr>3. Rear element and front element </b>"); 
+        document.write("<br> Rear Element: " + cq.rear.nodeElement + " <br> Front Element: " + cq.front.nodeElement);
+        document.write("<br><br><b><hr>4. Dequeue 8  elements from the queue. </b>");
+        //let pop it for 8 times
+        let j = 1;
+        while(j<=8){
+           cq.dequeue();
+           cq.printQueue();
+           j++;
+        }
+
+        document.write("<br><br><b><hr>4. Print the Queue: </b>");
+        cq.printQueue();
+
+        document.write("<br><br><b>5. Dequeue 2 elements: </b>");
+        cq.dequeue();
+        cq.printQueue();
+        cq.dequeue();
+        cq.printQueue();
+        cq.dequeue();
+        document.write("<br><br><b><hr>6. Print the Queue: </b>");
+        cq.printQueue();
+        document.write("<br><br><hr>");
+    </script>
+</body>
+</html>
