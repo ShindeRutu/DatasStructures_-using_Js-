@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=\, initial-scale=1.0">
+    <title>Double Hashing</title>
+    <style>
+        h3{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        //initialize array to null
+        hashTable.prototype.initArray = function(size){
+            let array=[];
+            for(let i=0;i<size;i++)
+                array.push(null);
+            
+            return array;
+        }//initArray
+
+        /********* hashTable() ***********/
+        //function to initliaze the array
+        function hashTable(size){
+            this.size = size;
+            this.keys = this.initArray(size);
+            this.values = this.initArray(size);
+            this.limit = 0;
+        }//hashTable
+
+        /******* hash function ******/
+        hashTable.prototype.hash = function(key){
+            //throw exception if key is not a int type
+            if(!Number.isInteger(key)) 
+                throw ' must be an integere datatype.'
+            
+            let hashInd = key % this.size; 
+            return hashInd;
+        }//hash()
+
+        //function to add the values as per the index location
+        hashTable.prototype.put=function(key,value){
+            if(this.limit >=this.size) 
+                throw 'hash table is full';
+           
+            var index = this.hash(key);
+            //var hashOne = index;
+            var step = 1; // iterartion i
+            var count = 0;
+            var coprime = this.size - 1;  //coprime number : wch sdhd be less then table size.
+            while(this.keys[index]!=null){
+                //applying double hashing
+                while(this.keys[index]){
+                    var index=[(index + (step * (coprime - (key % coprime)))) % this.size];
+                    step++;
+                    count ++;
+                }
+            document.write("<b>Collision occured !!   Collision count : </b>"+ count +"<br>");
+            }
+            this.keys[index]=key;
+            this.values[index]=value;
+            this.limit++;
+            document.write("<b>Inserted : "+ key +" successfully </b><br>");
+        }
+
+
+        //function to get the values stored at index location
+        hashTable.prototype.get = function(key){
+            let hashedIndex = this.hash(key);
+            
+            while(this.keys[hashedIndex]!=key){
+                hashedIndex++;
+                hashedIndex = hashedIndex % this.size;
+            }//while
+
+            return this.values[hashedIndex];
+        }// hashTable.prototype.get()
+
+        //display index and values of hash table
+        hashTable.prototype.showValues=function(){
+                    for(const index in this.keys){
+                        if(this.keys[index]!==undefined){
+                        document.write(index,' : ',this.values[index]+"<br>");
+                        }
+                    }//for
+                }//showValues
+        
+        /******* driver code ****/
+        document.write("<br><b><h3><hr>Double hashing </h3></b>");
+        document.write("<hr><br>");   
+        var dh = new hashTable(10); //assume table size to be 10;
+    
+        document.write("<b>Initial status of  hash table </b><br>");
+        dh.showValues();
+        document.write("<hr><br>");   
+
+        document.write("<b>1.Insert 52</b><br>");
+        dh.put(52,52);
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>2.Insert 102</b><br>");
+        //collision is performed at this value
+        dh.put(102,102); 
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>3.Insert 88</b><br>");
+        dh.put(88,88); 
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>4.Insert 92</b><br>");
+        //collision is performed at this value
+        dh.put(92,92);
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>5.Insert 103</b><br>");
+        dh.put(103,103);
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>6.Insert 98</b><br>");
+        //collision is performed at this value
+        dh.put(98,98); 
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>7.Insert 22</b><br>");
+        //collision is performed at this value
+        dh.put(22,22); 
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>8.Insert 111</b><br>");
+        dh.put(111,111);
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>9.Insert 55</b><br>");
+        dh.put(55,55);
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>10.Insert 10</b><br>");
+        dh.put(10,10);
+        dh.showValues();
+        document.write("<hr><br>");
+
+        document.write("<b>11.Final Hash Table values at index location</b><br>");
+        dh.showValues();
+    </script>
+</body>
+</html>

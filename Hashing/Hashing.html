@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hashing</title>
+</head>
+<body>
+    <script>
+
+        class Hashing{
+            //constructor
+            constructor(tablesize ){
+                this.hash_table = new Array(tablesize);
+                this.tablesize = tablesize; // value of m
+            }
+
+            
+            /********* to get the index Value for element **********/
+            hash(key){  
+                let indexVal;
+                indexVal = key % this.tablesize;   // we used divide method ie. h(k) = k mod m;
+                return indexVal;
+            }//hash
+
+            /********* to add the element at index Value **********/
+            setValue(key, value){
+                let indexVal = this.hash(key);
+
+                // initialize the unused index to null
+                if(!this.hash_table[indexVal])
+                    this.hash_table[indexVal] = [];
+                    
+                //push the value into the hash table
+                this.hash_table[indexVal].push([key,value]);  // we are using associative array
+                document.write("<br><b>" + value + " added successfully.</b>");
+                return indexVal;
+            }//setValue
+
+
+            displayTableVal(key){
+                let indexVal = this.hash(key);
+                document.write("<br><br><b>Index  is : </b>" + indexVal + "<br>");
+
+                //case1:
+                if(!this.hash_table[indexVal])
+                    return null;
+            
+                //case2:
+                for(let  val of this.hash_table[indexVal]){
+                    if(val[0] == key){
+                        return val[1];
+                    }
+                }//for
+            }//display
+
+        }//class hashing
+
+        //driver code
+        document.write("<br><b> Hashing </b><br>");
+        let h = new Hashing(10);  // [24,20,67,36,89,40,90.10]
+        let tableArray = [24,20,67,36,89,40,90,10];
+        for(let i = 0; i<tableArray.length;i++)
+            h.setValue(tableArray[i],tableArray[i]);  
+
+        document.write("<hr>");
+        for(let i = 0; i<tableArray.length;i++)
+            document.write("Value is " +  h.displayTableVal(tableArray[i]));
+           
+        
+
+
+    </script>
+</body>
+</html>
